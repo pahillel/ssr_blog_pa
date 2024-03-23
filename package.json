@@ -2,7 +2,7 @@
   "name": "nodejs_blog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "cross-env node ./main.js",
     "watch": "cross-env NODE_ENV=dev nodemon ./main.js",
