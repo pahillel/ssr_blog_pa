@@ -5,5 +5,11 @@ module.exports = {
   secret: 'superSecretKey',
   cookies: {
     maxAge: 24 * 60 * 60 * 1000 // 1 day
+  },
+  mongo: {
+    url: 'mongodb://localhost:27018',
+    options: {
+      dbName: 'ssr_blog'
+    }
   }
 };
