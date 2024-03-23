@@ -2,15 +2,13 @@
   <a class='header__link header__link--main' href='/'>
     Blog
   </a>
-
-  <a href='/posts'>
-    posts
-  </a>
+  {{#if isAuth}}
+    <a href='/posts'>Posts</a>
+  {{/if}}
 
   <nav>
     <ul class='header-list'>
       {{#if isAuth}}
-        <li><a href='/posts'>Posts</a></li>
         <li>
           <form action='/api/users/logout' method='POST'>
             <button type='submit'>
@@ -22,24 +20,6 @@
         <li><a href='/login'>Login</a></li>
         <li><a href='/signup'>Signup</a></li>
       {{/if}}
-      {{!-- {{#if isAuth}}
-        <li>
-          <a class='header__link' href='/login'>
-            Login
-          </a>
-        </li>
-
-        <li>
-          <a class='header__link' href='/signup'>
-            Signup
-          </a>
-        </li>
-      {{/if}} --}}
-      {{! <li>
-          <a class='header__link' href='/logout'>
-            Logout
-          </a>
-        </li> }}
 
     </ul>
   </nav>

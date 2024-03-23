@@ -7,6 +7,8 @@ const signToken = (userId) => {
 };
 
 const verifyToken = (token) => {
+  console.log('verifyToken', token);
+
   let data = {};
 
   if (!token) {

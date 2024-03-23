@@ -22,7 +22,7 @@ const loginUser = async (req, res, next) => {
 
     req.session.save((err) => {
       if (err) {
-        console.log(err);
+        console.log('req.session.save', err);
         next(err);
       } else {
         res.redirect('/');

@@ -40,8 +40,13 @@ const logoutUser = async (session) => {
   return session.destroy();
 };
 
+const getUserById = async (userId) => {
+  return UserModel.findById(userId).select('userName').lean().exec();
+};
+
 module.exports = {
   createUser,
   loginUser,
-  logoutUser
+  logoutUser,
+  getUserById
 };

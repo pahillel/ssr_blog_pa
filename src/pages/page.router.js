@@ -1,8 +1,17 @@
 const router = require('express').Router();
+const postsService = require('../api/posts/posts.service');
 const { checkAuth } = require('../middlewares');
 
-router.get('/', (req, res) => {
-  res.render('index', { isAuth: !!req.cookies.token });
+router.get('/', async (req, res) => {
+  try {
+    console.log('/', req.session);
+
+    const posts = await postsService.getAllPosts();
+
+    // console.log(posts);
+
+    res.render('index', { isAuth: !!req.cookies.token, posts });
+  } catch (error) {}
 });
 
 router.get('/login', (req, res) => {
