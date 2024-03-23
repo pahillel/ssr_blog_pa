@@ -8,8 +8,6 @@ module.exports = {
   },
   mongo: {
     url: 'mongodb://localhost:27018',
-    options: {
-      dbName: 'ssr_blog'
-    }
+    dbName: 'ssr_blog'
   }
 };
