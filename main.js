@@ -20,7 +20,7 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use(apiModule);
+app.use('/api', apiModule);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

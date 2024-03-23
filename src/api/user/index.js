@@ -1,14 +1,20 @@
 const router = require('express').Router();
+const { validate } = require('../../middlewares');
+
 const {
-  createUser,
+  signupUser,
+  loginUser,
   getUsers,
   getUser,
   deleteUser
 } = require('./user.controller');
+const { createUserValidation } = require('./user.validation');
 
 router.get('/', getUsers);
 
-router.post('/', createUser);
+router.post('/signup', validate(createUserValidation), signupUser);
+
+router.post('/login', loginUser);
 
 router.get('/:user_id', getUser);
 
