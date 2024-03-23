@@ -35,10 +35,15 @@ const validate = (
   };
 };
 
-const isAuth = (req, res, next) => {
-  return next();
+const isAuth = (req, res) => {
+  const x = req.headers;
+
+  console.log(x);
+
+  return true;
 };
 
 module.exports = {
-  validate
+  validate,
+  isAuth
 };

@@ -2,21 +2,24 @@ const router = require('express').Router();
 const { validate } = require('../../middlewares');
 
 const {
-  signupUser,
+  signUpUser,
   loginUser,
-  getUsers,
-  getUser,
+  logoutUser,
+  getAllUsers,
+  // getUserById,
   deleteUser
 } = require('./user.controller');
 const { createUserValidation } = require('./user.validation');
 
-router.get('/', getUsers);
-
-router.post('/signup', validate(createUserValidation), signupUser);
+router.post('/signup', validate(createUserValidation), signUpUser);
 
 router.post('/login', loginUser);
 
-router.get('/:user_id', getUser);
+router.post('/logout', logoutUser);
+
+router.get('/', getAllUsers);
+
+// router.get('/:user_id', getUserById);
 
 router.delete('/:user_id', deleteUser);
 
