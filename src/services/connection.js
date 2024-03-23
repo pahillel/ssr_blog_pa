@@ -1,5 +1,6 @@
+require('dotenv').config();
+const config = require('config');
 const mongoose = require('mongoose');
-const config = require('../../config');
 
 mongoose.connection.once('open', () => {
   console.log('Mongoose connected.');
