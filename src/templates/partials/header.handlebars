@@ -1,0 +1,26 @@
+<header class='header'>
+  <a class='header__link header__link--main' href='/'>
+    Blog
+  </a>
+  {{#if isAuth}}
+    <a href='/posts'>Posts</a>
+  {{/if}}
+
+  <nav>
+    <ul class='header-list'>
+      {{#if isAuth}}
+        <li>
+          <form action='/api/users/logout' method='POST'>
+            <button type='submit'>
+              logout
+            </button>
+          </form>
+        </li>
+      {{else}}
+        <li><a href='/login'>Login</a></li>
+        <li><a href='/signup'>Signup</a></li>
+      {{/if}}
+
+    </ul>
+  </nav>
+</header>

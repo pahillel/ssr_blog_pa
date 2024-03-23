@@ -1,4 +1,16 @@
 class UserController {
+  async renderLoginPage(req, res) {
+    try {
+      res.render('login');
+    } catch (error) {}
+  }
+
+  async renderSignUpPage(req, res) {
+    try {
+      res.render('signup');
+    } catch (error) {}
+  }
+
   login(req, res) {
     try {
     } catch (error) {}
