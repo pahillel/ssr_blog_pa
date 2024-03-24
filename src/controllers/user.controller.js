@@ -13,6 +13,19 @@ class UserController {
     } catch (error) {}
   }
 
+  async renderUsersPage(req, res) {
+    try {
+      const users = await userService.getAllUsers(req.user._id);
+
+      res.render('users', { users });
+    } catch (error) {}
+  }
+
+  async removeUser(req, res) {
+    try {
+    } catch (error) {}
+  }
+
   async login(req, res, next) {
     try {
       const user = await userService.login(req.body.userName);

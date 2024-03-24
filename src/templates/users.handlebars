@@ -1,0 +1,24 @@
+<div>
+  users page
+
+  {{#each users}}
+    <article>
+      <p>
+        {{this.userName}}
+      </p>
+      <p>
+        {{this.email}}
+      </p>
+      <p>
+        {{this.role}}
+      </p>
+      <p>
+        {{this.createdAt}}
+      </p>
+
+      <a href='/users?userId={{this._id}}'>
+        remove
+      </a>
+    </article>
+  {{/each}}
+</div>

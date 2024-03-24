@@ -9,7 +9,7 @@ class UserService {
   }
 
   async createUser(dto) {
-    const { userName, email, password } = dto;
+    const { userName, email, password, role = 'user' } = dto;
 
     const candidate = await UserModel.findOne({ email, userName });
 
@@ -22,10 +22,30 @@ class UserService {
     const user = await UserModel.create({
       userName,
       email,
-      password: hashPass
+      password: hashPass,
+      role
     });
 
     return user;
+  }
+
+  async getUserByName(userName) {
+    const user = await UserModel.findOne({ userName }).lean().exec();
+
+    return user;
+  }
+
+  async getAllUsers(userId) {
+    const users = await UserModel.find({ _id: { $ne: userId } })
+      .select('userName email role createdAt')
+      .lean()
+      .exec();
+
+    return users;
+  }
+
+  async deleteUser(userId) {
+    return await UserModel.deleteOne({ _id: userId });
   }
 }
 

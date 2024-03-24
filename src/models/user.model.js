@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const PostModel = require('./post.model');
 
 const userSchema = new mongoose.Schema(
   {
@@ -27,6 +28,14 @@ const userSchema = new mongoose.Schema(
     collection: 'users'
   }
 );
+
+userSchema.pre('remove', async (next) => {
+  try {
+    await PostModel.deleteMany({ author: this._id });
+  } catch (error) {
+    next(error);
+  }
+});
 
 const UserModel = mongoose.model('User', userSchema);
 

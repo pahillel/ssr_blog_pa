@@ -1,35 +1,58 @@
 {{#> main}}
-  <div>Main page</div>
-  {{!-- {{#if isAuth}}
+  <section class="posts">
+  {{#if isAuth}}
     <h1>Welcome</h1>
 
-    <form action="/api/posts" method="POST">
-      <textarea name="text"  cols="30" rows="8"></textarea>
+    <form class="posts__form" action="/posts" method="POST">
+      <textarea class="posts__form-field" name="content"  cols="30" rows="8"></textarea>
 
-      <button type="submit">
+      <button class="button" type="submit">
         send
       </button>
     </form>
   {{/if}}
 
   {{#each posts}}
-    <article>
-      <p>
-      {{ this.text }}
-      </p>
-      <p>
-      {{ this.author.userName }}
-      </p>
+    <article class="post">
+      <header class="post__header">
+        <span>
+          {{ this.author.userName }}
+        </span>
 
-      <p>
-      {{ this.createdAt }}
-      </p>
+        <time datetime="this.createdAt">
+          {{ this.createdAt }}
+        </time>
+      </header>
 
-      <form action='/api/posts/{{this._id}}' method='POST'>
-        <button type='submit'>
-          delete
-        </button>
-      </form>
+      <div class="post__content">
+      {{ this.content }}
+      </div>
+
+      <a class="post__link" href="/posts/{{this._id}}"></a>
+      {{!-- {{#if this.comments.length}}
+      <div class="post__comments">
+        <ul class="post__comments-list">
+          <li>
+            <span>
+
+            </span>
+          </li>
+        </ul>
+      </div>
+      {{/if}} --}}
+      {{!-- <footer class="post__footer">
+        <button class="post__delete" data-post="{{this._id}}">
+          Delete
+        </button> --}}
+        {{!-- <form action='/api/posts/{{this._id}}' method='POST'>
+          <button type='submit'>
+            delete
+          </button>
+        </form>
+      </footer> --}}
     </article>
-  {{/each}} --}}
+  {{/each}}
+  </section>
 {{/main}}
+
+<script src="/public/posts.js"></script>
