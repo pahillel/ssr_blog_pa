@@ -32,8 +32,6 @@ class PostsController {
         throw new Error('Post not found');
       }
 
-      post.createdAt = moment(post.createdAt).format('L - HH:mm');
-
       res.render('post', { post });
     } catch (e) {
       res.status(500).send(e.message);

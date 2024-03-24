@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { isAuth, tokenSession, saveSession } = require('../../middlewares/auth');
+const { isAuth } = require('../../middlewares/auth');
 const { isAdmin } = require('../../middlewares/guards');
 const { setTemplateParams } = require('../../middlewares/shared');
 
@@ -16,9 +16,6 @@ router.get('/posts', isAuth, postsController.renderPostsPage);
 router.get('/logout', userController.logout);
 router.get('/users', isAuth, isAdmin, userController.renderUsersPage);
 router.get('/posts/:postId', postsController.renderPostPage);
-
-// router.post('/login', userController.login, saveSession, tokenSession);
-// router.post('/signup', userController.signup, saveSession, tokenSession);
-// router.post('/posts', isAuth, postsController.createPost);
+router.get('/users/:userId', isAuth, isAdmin, userController.removeUser);
 
 module.exports = router;

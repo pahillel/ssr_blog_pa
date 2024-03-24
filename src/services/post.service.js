@@ -1,5 +1,6 @@
 const PostModel = require('../models/post.model');
 const UserModel = require('../models/user.model');
+const CommentModel = require('../models/comment.model');
 
 class PostService {
   async createPost(content, author) {
@@ -20,6 +21,7 @@ class PostService {
       .sort({ createdAt: -1 })
       .lean()
       .exec();
+    // const posts = await PostModel.aggregate
 
     return posts;
   }

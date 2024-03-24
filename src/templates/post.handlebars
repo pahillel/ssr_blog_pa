@@ -1,3 +1,54 @@
-<div>
-  post page
-</div>
+<article class='post'>
+  <header class='post__header'>
+    <span>
+      {{post.author.userName}}
+    </span>
+
+    <time datetime='this.createdAt'>
+      {{formatDate post.createdAt}}
+    </time>
+  </header>
+
+  <div class='post__content'>
+    {{post.content}}
+  </div>
+</article>
+
+{{#if post.comments.length}}
+  <ul class='post__comments'>
+    {{#each post.comments}}
+      <li>
+        <span>
+          {{this.author.userName}}
+        </span>
+
+        <time datetime='this.createdAt'>
+          {{formatDate this.createdAt}}
+        </time>
+
+        <p>
+          {{this.comment}}
+        </p>
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+{{#if isAuth}}
+  <form
+    class='post__comment-form'
+    action='/api/posts/{{post._id}}/comment'
+    method='POST'
+  >
+    <textarea
+      class='posts__form-field'
+      name='comment'
+      cols='30'
+      rows='8'
+    ></textarea>
+
+    <button type='submit'>
+      Send
+    </button>
+  </form>
+{{/if}}

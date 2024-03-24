@@ -1,4 +1,7 @@
 const UserModel = require('../models/user.model');
+const PostModel = require('../models/post.model');
+const CommentModel = require('../models/comment.model');
+
 const { hashPassword } = require('../utils/auth');
 
 class UserService {
@@ -45,7 +48,9 @@ class UserService {
   }
 
   async deleteUser(userId) {
-    return await UserModel.deleteOne({ _id: userId });
+    await PostModel.deleteMany({ author: userId });
+    await CommentModel.deleteMany({ author: userId });
+    await UserModel.deleteOne({ _id: userId });
   }
 }
 

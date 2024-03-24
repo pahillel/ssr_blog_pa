@@ -23,6 +23,10 @@ class UserController {
 
   async removeUser(req, res) {
     try {
+      const { userId } = req.params;
+      await userService.deleteUser(userId);
+
+      res.redirect('/users');
     } catch (error) {}
   }
 

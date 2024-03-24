@@ -29,14 +29,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.pre('remove', async (next) => {
-  try {
-    await PostModel.deleteMany({ author: this._id });
-  } catch (error) {
-    next(error);
-  }
-});
-
 const UserModel = mongoose.model('User', userSchema);
 
 module.exports = UserModel;
