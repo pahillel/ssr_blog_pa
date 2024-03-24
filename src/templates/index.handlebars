@@ -20,39 +20,16 @@
         </span>
 
         <time datetime="this.createdAt">
-          {{ this.createdAt }}
+          {{ formatDate this.createdAt }}
         </time>
       </header>
 
       <div class="post__content">
-      {{ this.content }}
+      {{ spliceContent this.content 100 }}
       </div>
 
       <a class="post__link" href="/posts/{{this._id}}"></a>
-      {{!-- {{#if this.comments.length}}
-      <div class="post__comments">
-        <ul class="post__comments-list">
-          <li>
-            <span>
-
-            </span>
-          </li>
-        </ul>
-      </div>
-      {{/if}} --}}
-      {{!-- <footer class="post__footer">
-        <button class="post__delete" data-post="{{this._id}}">
-          Delete
-        </button> --}}
-        {{!-- <form action='/api/posts/{{this._id}}' method='POST'>
-          <button type='submit'>
-            delete
-          </button>
-        </form>
-      </footer> --}}
     </article>
   {{/each}}
   </section>
 {{/main}}
-
-<script src="/public/posts.js"></script>

@@ -8,10 +8,6 @@ class PostsController {
     try {
       const posts = await postService.getPosts();
 
-      posts.forEach((post) => {
-        post.createdAt = moment(post.createdAt).format('L - HH:mm');
-      });
-
       res.render('index', { posts });
     } catch (e) {
       res.status(500).send(e.message);

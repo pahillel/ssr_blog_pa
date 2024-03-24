@@ -10,13 +10,19 @@ const { jwtParser } = require('./middlewares/auth');
 const session = require('./session');
 const routes = require('./routes');
 
+const { formatDate, spliceContent } = require('./utils/templates-helper');
+
 const app = express();
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
   extname: '.handlebars',
   layoutsDir: path.join(__dirname, 'templates', 'layouts'),
-  partialsDir: path.join(__dirname, 'templates', 'partials')
+  partialsDir: path.join(__dirname, 'templates', 'partials'),
+  helpers: {
+    formatDate: formatDate,
+    spliceContent: spliceContent
+  }
 });
 
 app.engine('handlebars', hbs.engine);

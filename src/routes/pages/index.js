@@ -15,7 +15,7 @@ router.get('/signup', userController.renderSignUpPage);
 router.get('/posts', isAuth, postsController.renderPostsPage);
 router.get('/logout', userController.logout);
 router.get('/users', isAuth, isAdmin, userController.renderUsersPage);
-router.post('/posts/:postId');
+router.get('/posts/:postId', postsController.renderPostPage);
 
 // router.post('/login', userController.login, saveSession, tokenSession);
 // router.post('/signup', userController.signup, saveSession, tokenSession);
