@@ -20,7 +20,7 @@ const serverSession = session({
   unset: 'destroy',
   cookie: {
     ...config.cookies,
-    name: 'token',
+    // name: 'token',
     secure: process.env.NODE_ENV === 'production'
   }
 });

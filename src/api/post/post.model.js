@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
 
-/**
- * @typedef {import('./comment.model').CommentModel} CommentModel
- */
 const postSchema = new mongoose.Schema(
   {
     author: {

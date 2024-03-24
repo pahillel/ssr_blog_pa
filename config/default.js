@@ -9,5 +9,6 @@ module.exports = {
   mongo: {
     url: 'mongodb://localhost:27018',
     dbName: 'ssr_blog'
-  }
+  },
+  baseUrl: 'http://localhost:3000'
 };

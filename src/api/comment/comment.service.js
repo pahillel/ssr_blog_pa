@@ -1,18 +1,11 @@
-const CommentModel = require('../models/comment.model');
-const PostModel = require('../models/post.model');
+const CommentModel = require('./comment.model');
 
 class CommentService {
-  async addComment(comment, postId, author) {
+  async createComment(comment, postId, author) {
     const newComment = await CommentModel.create({
       comment,
       author,
       post: postId
-    });
-
-    await PostModel.findByIdAndUpdate(postId, {
-      $push: {
-        comments: newComment._id
-      }
     });
 
     return newComment;
@@ -25,4 +18,6 @@ class CommentService {
   }
 }
 
-module.exports = new CommentService();
+const commentService = new CommentService();
+
+module.exports = commentService;

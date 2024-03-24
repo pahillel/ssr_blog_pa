@@ -1,7 +1,7 @@
-// require('dotenv').config();
 const config = require('config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const STATUS = require('../constants');
 
 const generateToken = (user) => {
   const { _id, role } = user || {};
@@ -12,6 +12,8 @@ const generateToken = (user) => {
 };
 
 const verifyToken = (token) => {
+  console.log('VERIFY TOKEN', token);
+
   if (!token) {
     return {};
   }
@@ -30,6 +32,8 @@ const hashPassword = async (password) => {
 const checkPassword = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
 };
+
+// const response = (status = STATUS.NOT_FOUND, payload) => {};
 
 module.exports = {
   generateToken,

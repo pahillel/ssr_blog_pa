@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const PostModel = require('./post.model');
 
 const userSchema = new mongoose.Schema(
   {
