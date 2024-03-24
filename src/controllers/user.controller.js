@@ -1,3 +1,5 @@
+const userService = require('../services/user.service');
+
 class UserController {
   async renderLoginPage(req, res) {
     try {
@@ -11,18 +13,42 @@ class UserController {
     } catch (error) {}
   }
 
-  login(req, res) {
+  async login(req, res, next) {
     try {
+      const user = await userService.login(req.body.userName);
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      req.user = user;
+
+      next();
     } catch (error) {}
   }
 
-  signup(req, res) {
+  async signup(req, res, next) {
     try {
+      const user = await userService.createUser(req.body);
+
+      if (!user) {
+        throw new Error('User already exists');
+      }
+
+      req.user = user;
+
+      next();
     } catch (error) {}
   }
 
-  logout(req, res) {
+  async logout(req, res) {
     try {
+      // TODO: why don't remove document from DB?
+      req.session.destroy();
+      req.session = null;
+
+      res.clearCookie('token');
+      res.redirect('/login');
     } catch (error) {}
   }
 

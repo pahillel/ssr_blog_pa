@@ -1,16 +1,31 @@
+const UserModel = require('../models/user.model');
+const { hashPassword } = require('../utils/auth');
+
 class UserService {
-  async login(username) {
-    // Check in the database if the username exists
-    // Return true if the username exists, false otherwise
+  async login(userName) {
+    const user = await UserModel.findOne({ userName });
+
+    return user;
   }
 
-  async logout() {
-    // Perform logout logic here
-  }
+  async createUser(dto) {
+    const { userName, email, password } = dto;
 
-  register(user) {
-    // Create a new user in the database
-    // Return the created user object
+    const candidate = await UserModel.findOne({ email, userName });
+
+    if (candidate) {
+      return null;
+    }
+
+    const hashPass = await hashPassword(password);
+
+    const user = await UserModel.create({
+      userName,
+      email,
+      password: hashPass
+    });
+
+    return user;
   }
 }
 

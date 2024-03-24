@@ -1,6 +1,4 @@
-require('dotenv').config();
 const config = require('config');
-
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
@@ -22,6 +20,7 @@ const serverSession = session({
   unset: 'destroy',
   cookie: {
     ...config.cookies,
+    name: 'token',
     secure: process.env.NODE_ENV === 'production'
   }
 });

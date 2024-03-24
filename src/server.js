@@ -2,6 +2,10 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+
+const { closeConnection } = require('./connection');
+
+const { jwtParser } = require('./middlewares/auth');
 const session = require('./session');
 const routes = require('./routes');
 
@@ -21,12 +25,14 @@ app.set('views', path.join(__dirname, 'templates'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(jwtParser);
 app.use(session);
 
 app.use(routes);
 
 process.on('SIGINT', async () => {
   try {
+    await closeConnection();
   } catch (error) {
     console.error('Error closing the connection', error);
   } finally {

@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const config = require('config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -13,7 +13,7 @@ const generateToken = (user) => {
 
 const verifyToken = (token) => {
   if (!token) {
-    return null;
+    return {};
   }
 
   const decoded = jwt.verify(token, config.secret);
