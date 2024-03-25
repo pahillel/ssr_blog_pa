@@ -1,0 +1,58 @@
+<div class="post-container">
+  <ul class="posts-list">
+    <li class="posts-list__item">
+      {{> post post user=user }}
+    </li>
+  </ul>
+
+
+  <div class='comments'>
+    <h3 class='comments-title'>
+      Comments
+    </h3>
+
+    {{#if isAuth}}
+      <form class='post-form' action='/api/comments/{{post._id}}' method='POST'>
+        <textarea
+          class='post-form__field'
+          name='comment'
+          cols='30'
+          rows='5'
+          placeholder='Write your post here...'
+        ></textarea>
+
+        <button class='button' type='submit'>
+          Publish
+        </button>
+      </form>
+    {{/if}}
+
+    {{#if post.comments}}
+      <ul class='comments-list'>
+        {{#each post.comments}}
+          <li class='comments-list__item'>
+            <div class='comment-header'>
+              <span>
+                Author: {{this.author.userName}}
+              </span>
+
+              <time datetime='{{this.createdAt}}'>
+                {{formatDate this.createdAt}}
+              </time>
+            </div>
+
+            <div class='comment-content'>
+              {{this.comment}}
+            </div>
+
+            {{#if (equal this.author._id ../user)}}
+            <button class="button button--warn button--mini" name="delete-comment" data-comment="{{this._id}}">
+              delete comment
+            </button>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
+</div>

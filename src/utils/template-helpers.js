@@ -16,7 +16,14 @@ const spliceContent = (content, to = 100) => {
   return content;
 };
 
+const isEquals = (a = '', b = '') => {
+  console.log(a, b);
+
+  return a.toString() === b.toString();
+};
+
 module.exports = {
   formatDate,
-  spliceContent
+  spliceContent,
+  isEquals
 };

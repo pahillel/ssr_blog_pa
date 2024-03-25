@@ -16,6 +16,15 @@ class CommentService {
 
     return deletedComment;
   }
+
+  async getComment(commentId, authorId) {
+    const comment = await CommentModel.findOne({
+      _id: commentId,
+      author: authorId
+    });
+
+    return comment;
+  }
 }
 
 const commentService = new CommentService();

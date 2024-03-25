@@ -19,7 +19,7 @@ class UserController {
 
       res.cookie('token', token, { ...config.cookies });
 
-      res.status(200).send(token);
+      res.json(token);
     } catch (error) {
       console.log('login', error.message);
     }

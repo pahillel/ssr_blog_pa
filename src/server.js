@@ -5,7 +5,11 @@ const morgan = require('morgan');
 const path = require('path');
 
 const { closeConnection } = require('./connection');
-const { formatDate, spliceContent } = require('./utils/template-helpers');
+const {
+  formatDate,
+  spliceContent,
+  isEquals
+} = require('./utils/template-helpers');
 const routerModule = require('./routes');
 
 const app = express();
@@ -17,7 +21,8 @@ const hbs = exphbs.create({
   partialsDir: path.join(__dirname, 'templates', 'partials'),
   helpers: {
     formatDate: formatDate,
-    spliceContent: spliceContent
+    spliceContent: spliceContent,
+    equal: isEquals
   }
 });
 

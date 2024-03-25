@@ -3,7 +3,8 @@ const setTemplateLocals = (req, res, next) => {
 
   res.locals = {
     isAuth: !!_id,
-    isAdmin: role === 'admin'
+    isAdmin: role === 'admin',
+    user: _id
   };
 
   next();

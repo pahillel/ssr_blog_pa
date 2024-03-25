@@ -23,15 +23,9 @@ forms.forEach((form) => {
       });
 
       if (response.ok) {
+        // window.location.replace('/home');
         window.location.reload();
       }
-
-      // console.log('RESPONSE', response);
-
-      // const data = await response.json();
-      // console.log(data);
     } catch (error) {}
   });
 });
-
-// document.querySelector('form')

@@ -1,9 +1,9 @@
 const router = require('express').Router();
+const commentController = require('../../controllers/comment.controller');
+const { isAuth } = require('../../middlewares/guards');
 
-// create comment auth
-router.post('/');
+router.post('/:postId', isAuth, commentController.createComment);
 
-// delete comment auth check author === userId
-router.delete('/:postId');
+router.delete('/:commentId', isAuth, commentController.deleteComment);
 
 module.exports = router;

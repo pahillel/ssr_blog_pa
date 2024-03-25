@@ -8,7 +8,8 @@ router.use('/posts', postRouter);
 // auth and admin
 router.use('/users', userRouter);
 
+router.use('/comments', commentRouter);
+
 // // auth
-// router.use('/comments', commentRouter);
 
 module.exports = router;

@@ -1,6 +1,12 @@
 const isAuth = (req, res, next) => {
+  console.log('isAuth middleware', req.url);
+
   if (!req.user) {
-    throw new Error('Unauthorized');
+    if (req.url === '/home') {
+      return res.redirect('/login');
+    } else {
+      throw new Error('Unauthorized');
+    }
   }
 
   next();

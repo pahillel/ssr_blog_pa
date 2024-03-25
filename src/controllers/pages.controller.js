@@ -13,26 +13,27 @@ class PagesController {
   }
 
   async renderLogin(req, res) {
-    if (!!req.user) {
-      res.redirect('/');
-    }
+    // if (!!req.user) {
+    //   res.redirect('/');
+    // }
 
     res.render('login');
   }
 
   async renderSignup(req, res) {
-    if (!!req.user) {
-      res.redirect('/');
-    }
+    // if (!!req.user) {
+    //   res.redirect('/');
+    // }
 
     res.render('signup');
   }
 
   async renderHome(req, res, next) {
     try {
-      if (!req.user) {
-        res.redirect('/login');
-      }
+      console.log('here');
+      // if (!req.user) {
+      //   res.redirect('/login');
+      // }
 
       const posts = await postService.getUserPosts(req.user._id);
 
@@ -44,13 +45,13 @@ class PagesController {
 
   async renderUsers(req, res, next) {
     try {
-      if (!req.user) {
-        res.redirect('/login');
-      }
+      // if (!req.user) {
+      //   res.redirect('/login');
+      // }
 
-      if (req.user.role !== 'admin') {
-        res.redirect('/');
-      }
+      // if (req.user.role !== 'admin') {
+      //   res.redirect('/');
+      // }
 
       const users = await userService.getAllUsers();
 
@@ -66,7 +67,9 @@ class PagesController {
 
       const post = await postService.getPost(postId);
 
-      res.render('post', { post });
+      console.log(post);
+
+      res.render('full-post', { post });
     } catch (error) {
       next(error);
     }

@@ -1,17 +1,29 @@
 const PostModel = require('../models/post.model');
 const UserModel = require('../models/user.model');
 const CommentModel = require('../models/comment.model');
+const mongoose = require('mongoose');
+
+const postsPopulate = [
+  {
+    path: 'author',
+    model: UserModel,
+    select: 'userName'
+  },
+  {
+    path: 'comments',
+    model: CommentModel,
+    populate: {
+      path: 'author',
+      model: UserModel,
+      select: 'userName'
+    }
+  }
+];
 
 class PostService {
   async getUserPosts(author) {
     const posts = await PostModel.find({ author })
-      .populate([
-        {
-          path: 'author',
-          model: UserModel,
-          select: 'userName'
-        }
-      ])
+      .populate(postsPopulate)
       .sort({ createdAt: -1 })
       .lean()
       .exec();
@@ -34,6 +46,16 @@ class PostService {
           path: 'author',
           model: UserModel,
           select: 'userName'
+        },
+        {
+          path: 'comments',
+          model: CommentModel,
+          options: { sort: { createdAt: -1 } },
+          populate: {
+            path: 'author',
+            model: UserModel,
+            select: 'userName'
+          }
         }
       ])
       .lean()
@@ -44,13 +66,7 @@ class PostService {
 
   async getAllPosts() {
     const posts = await PostModel.find()
-      .populate([
-        {
-          path: 'author',
-          model: UserModel,
-          select: 'userName'
-        }
-      ])
+      .populate(postsPopulate)
       .sort({ createdAt: -1 })
       .lean()
       .exec();
