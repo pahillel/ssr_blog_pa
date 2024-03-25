@@ -1,30 +1,31 @@
-require('dotenv').config();
 const config = require('config');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const signToken = (userId) => {
-  return jwt.sign(userId, config.secret, { expiresIn: '1h' });
+const signToken = (payload) => {
+  return jwt.sign(payload, config.secret, {
+    expiresIn: '1d'
+  });
 };
 
 const verifyToken = (token) => {
-  console.log('verifyToken', token);
+  return jwt.verify(token, config.secret);
+};
 
-  let data = {};
+const hashPassword = async (password) => {
+  const salt = await bcrypt.genSalt(10);
+  return await bcrypt.hash(password, salt);
+};
 
-  if (!token) {
-    return data;
-  }
+const comparePassword = async (password, hash) => {
+  const result = await bcrypt.compare(password, hash);
 
-  try {
-    data = jwt.verify(token, config.secret);
-  } catch (error) {
-    console.error(error);
-  }
-
-  return data;
+  return !!result;
 };
 
 module.exports = {
   signToken,
-  verifyToken
+  verifyToken,
+  hashPassword,
+  comparePassword
 };

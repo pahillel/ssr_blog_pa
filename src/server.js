@@ -1,63 +1,37 @@
-require('dotenv').config();
-const config = require('config');
 const express = require('express');
-const exphbs = require('express-handlebars');
-const path = require('path');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
+const exphbs = require('express-handlebars');
+const morgan = require('morgan');
+const path = require('path');
 
-const { openConnection, closeConnection } = require('./services/connection');
-const { tokenSession } = require('./middlewares');
-
-const pageRouter = require('./pages/page.router');
-const api = require('./api');
-
-(async () => await openConnection())();
-
-const storeInstance = MongoStore.create({
-  mongoUrl: config.mongo.url,
-  ttl: config.cookies.maxAge,
-  collectionName: 'sessions',
-  autoRemove: 'native',
-  stringify: false,
-  dbName: config.mongo.options.dbName
-});
+const { closeConnection } = require('./connection');
+const { formatDate, spliceContent } = require('./utils/template-helpers');
+const routerModule = require('./routes');
 
 const app = express();
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
   extname: '.handlebars',
-  layoutsDir: path.join(__dirname, 'views', 'layouts'),
-  partialsDir: path.join(__dirname, 'views', 'partials')
+  layoutsDir: path.join(__dirname, 'templates', 'layouts'),
+  partialsDir: path.join(__dirname, 'templates', 'partials'),
+  helpers: {
+    formatDate: formatDate,
+    spliceContent: spliceContent
+  }
 });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'templates'));
+app.use('/public', express.static(path.join(__dirname, '..', 'assets')));
 
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(
-  session({
-    name: 'token',
-    secret: config.secret,
-    resave: false,
-    saveUninitialized: false,
-    store: storeInstance,
-    cookie: {
-      ...config.cookies,
-      name: 'token',
-      secure: false
-    }
-  })
-);
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(morgan('dev'));
 
-app.use('/', pageRouter);
-app.use('/api', api);
-app.use(tokenSession);
+app.use('/', routerModule);
 
 process.on('SIGINT', async () => {
   try {
@@ -65,6 +39,7 @@ process.on('SIGINT', async () => {
   } catch (error) {
     console.error('Error closing the connection', error);
   } finally {
+    console.log('Server stopped');
     process.exit(0);
   }
 });

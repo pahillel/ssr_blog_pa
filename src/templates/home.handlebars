@@ -1,0 +1,25 @@
+<div>
+  HOME
+</div>
+
+{{> create-post}}
+
+{{#each posts}}
+  <article class='post'>
+    <header class='post__header'>
+      <span>
+        {{this.author.userName}}
+      </span>
+
+      <time datetime='this.createdAt'>
+        {{formatDate this.createdAt}}
+      </time>
+    </header>
+
+    <div class='post__content'>
+      {{spliceContent this.content 100}}
+    </div>
+
+    <a class='post__link' href='/posts/{{this._id}}'></a>
+  </article>
+{{/each}}
