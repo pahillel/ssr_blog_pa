@@ -15,4 +15,6 @@ router.get('/home', pagesController.renderHome);
 
 router.get('/users', pagesController.renderUsers);
 
+router.get('/posts/:postId', pagesController.renderPostPage);
+
 module.exports = router;

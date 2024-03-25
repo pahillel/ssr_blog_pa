@@ -1,4 +1,5 @@
 const postService = require('../services/post.service');
+const userService = require('../services/user.service');
 
 class PagesController {
   async renderIndex(req, res, next) {
@@ -41,7 +42,35 @@ class PagesController {
     }
   }
 
-  async renderUsers(req, res) {}
+  async renderUsers(req, res, next) {
+    try {
+      if (!req.user) {
+        res.redirect('/login');
+      }
+
+      if (req.user.role !== 'admin') {
+        res.redirect('/');
+      }
+
+      const users = await userService.getAllUsers();
+
+      res.render('users', { users });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async renderPostPage(req, res, next) {
+    try {
+      const { postId } = req.params;
+
+      const post = await postService.getPost(postId);
+
+      res.render('post', { post });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new PagesController();

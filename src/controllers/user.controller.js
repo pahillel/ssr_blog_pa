@@ -52,6 +52,28 @@ class UserController {
       res.status(200).send();
     } catch (error) {}
   }
+
+  async getAllUsers(req, res) {
+    try {
+      const users = await userService.getAllUsers();
+
+      if (!users) {
+        throw new Error('Users not found');
+      }
+
+      res.status(200).send(users);
+    } catch (error) {}
+  }
+
+  async deleteUser(req, res) {
+    try {
+      const { userId } = req.params;
+
+      await userService.deleteUser(userId);
+
+      res.status(200).send('deleted');
+    } catch (error) {}
+  }
 }
 
 module.exports = new UserController();

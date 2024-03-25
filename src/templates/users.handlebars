@@ -1,0 +1,28 @@
+<div>
+  users page
+
+  <ul class='users'>
+    {{#each users}}
+      <li>
+        <article>
+          <p>
+            {{this.userName}}
+          </p>
+          <p>
+            {{this.email}}
+          </p>
+          <p>
+            {{this.role}}
+          </p>
+          <p>
+            {{this.createdAt}}
+          </p>
+
+          <button type='button' name='delete' data-user='{{this._id}}'>
+            remove
+          </button>
+        </article>
+      </li>
+    {{/each}}
+  </ul>
+</div>

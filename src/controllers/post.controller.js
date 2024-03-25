@@ -50,6 +50,34 @@ class PostController {
       console.log('createNewPost', error.message);
     }
   }
+
+  async deletePost(req, res) {
+    try {
+      const { postId } = req.params;
+
+      const result = await postService.deletePost(postId);
+
+      if (!result) {
+        throw new Error('post was not deleted');
+      }
+
+      res.status(204).send();
+    } catch (error) {}
+  }
+
+  async getPost(req, res) {
+    try {
+      const { postId } = req.params;
+
+      const post = await postService.getPost(postId);
+
+      if (!post) {
+        throw new Error('Post not found');
+      }
+
+      res.status(200).send(post);
+    } catch (error) {}
+  }
 }
 
 module.exports = new PostController();

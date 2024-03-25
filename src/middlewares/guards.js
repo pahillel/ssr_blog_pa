@@ -10,7 +10,7 @@ const isAdmin = (req, res, next) => {
   const { role = '' } = req.user || {};
 
   if (role !== 'admin') {
-    throw new Error('Forbidden');
+    throw new Error('Forbidden! You have no permission');
   }
 
   next();

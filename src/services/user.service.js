@@ -50,8 +50,8 @@ class UserService {
     await UserModel.deleteOne({ _id: userId });
   }
 
-  async getAllUsers(userId) {
-    const users = await UserModel.find({ _id: { $ne: userId } })
+  async getAllUsers() {
+    const users = await UserModel.find()
       .select('userName email role createdAt')
       .lean()
       .exec();
