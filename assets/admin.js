@@ -2,11 +2,9 @@ const users = document.querySelector('.users');
 
 if (users) {
   users.addEventListener('click', async (event) => {
-    event.preventDefault();
-
     const target = event.target;
 
-    if (target.closest('button[name="delete"]')) {
+    if (target.closest('button[name="delete-user"]')) {
       const userId = target.dataset.user;
 
       if (userId) {

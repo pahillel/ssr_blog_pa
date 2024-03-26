@@ -13,31 +13,27 @@ class PagesController {
   }
 
   async renderLogin(req, res) {
-    // if (!!req.user) {
-    //   res.redirect('/');
-    // }
-
-    res.render('login');
+    res.render('login', { active: 'login' });
   }
 
   async renderSignup(req, res) {
-    // if (!!req.user) {
-    //   res.redirect('/');
-    // }
-
-    res.render('signup');
+    res.render('signup', { active: 'signup' });
   }
 
-  async renderHome(req, res, next) {
+  async renderPosts(req, res, next) {
     try {
-      console.log('here');
-      // if (!req.user) {
-      //   res.redirect('/login');
-      // }
+      let userId = '';
+      const isAdminRequest = req.params.userId && req.user.role === 'admin';
 
-      const posts = await postService.getUserPosts(req.user._id);
+      if (isAdminRequest) {
+        userId = req.params.userId;
+      } else {
+        userId = req.user._id;
+      }
 
-      res.render('home', { posts });
+      const posts = await postService.getUserPosts(userId);
+
+      res.render('home', { posts, active: 'posts', hideForm: isAdminRequest });
     } catch (error) {
       next(error);
     }
@@ -45,17 +41,9 @@ class PagesController {
 
   async renderUsers(req, res, next) {
     try {
-      // if (!req.user) {
-      //   res.redirect('/login');
-      // }
-
-      // if (req.user.role !== 'admin') {
-      //   res.redirect('/');
-      // }
-
       const users = await userService.getAllUsers();
 
-      res.render('users', { users });
+      res.render('users', { users, active: 'users' });
     } catch (error) {
       next(error);
     }
@@ -67,9 +55,7 @@ class PagesController {
 
       const post = await postService.getPost(postId);
 
-      console.log(post);
-
-      res.render('full-post', { post });
+      res.render('full-post', { post, active: 'posts' });
     } catch (error) {
       next(error);
     }

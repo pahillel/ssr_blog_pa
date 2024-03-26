@@ -9,24 +9,34 @@
         {{#if isAuth}}
           {{#if isAdmin}}
             <li>
-              <a class='header__link' href='/users'>Users</a>
+              <a class='header__link {{isActive active "users"}}' href='/users'>
+                Users
+              </a>
             </li>
           {{/if}}
           <li>
-            <a class='header__link' href='/home'>Posts</a>
+            <a class='header__link {{isActive active "posts"}}' href='/posts'>
+              Posts
+            </a>
           </li>
           <li>
-            <button
-              class='header__link header__link--btn'
-              name='logout'
-            >Logout</button>
+            <button class='header__link header__link--btn' name='logout'>
+              Logout
+            </button>
           </li>
         {{else}}
           <li>
-            <a class='header__link' href='/login'>Login</a>
+            <a
+              class='header__link {{isActive active "signupt"}}'
+              href='/signup'
+            >
+              Signup
+            </a>
           </li>
           <li>
-            <a class='header__link' href='/signup'>Signup</a>
+            <a class='header__link {{isActive active "login"}}' href='/login'>
+              Login
+            </a>
           </li>
         {{/if}}
 

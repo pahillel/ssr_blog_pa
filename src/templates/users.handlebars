@@ -1,27 +1,45 @@
-<div>
-  users page
+<div class='users'>
+  <h3 class='users-title'>
+    Users
+  </h3>
 
-  <ul class='users'>
+  <ul class='users-list'>
     {{#each users}}
-      <li>
-        <article>
-          <p>
-            {{this.userName}}
-          </p>
-          <p>
-            {{this.email}}
-          </p>
-          <p>
-            {{this.role}}
-          </p>
-          <p>
-            {{this.createdAt}}
-          </p>
+      <li class='users-list__item'>
+        <div class='users-list__box'>
+          <span>User name:</span>
+          <span>{{this.userName}}</span>
+        </div>
 
-          <button type='button' name='delete' data-user='{{this._id}}'>
-            remove
-          </button>
-        </article>
+        <div class='users-list__box'>
+          <span>User email:</span>
+          <span>{{this.email}}</span>
+        </div>
+
+        <div class='users-list__box'>
+          <span>User role:</span>
+          <span>{{this.role}}</span>
+        </div>
+
+        <div class='users-list__box'>
+          <span>Registration date:</span>
+          <time datetime='{{this.createdAt}}'>
+            {{formatDate this.createdAt}}
+          </time>
+        </div>
+
+        <a class='link' href='/posts/user/{{this._id}}'>
+          See user posts
+        </a>
+
+        <button
+          class='button button--warn button--mini'
+          type='button'
+          name='delete-user'
+          data-user='{{this._id}}'
+        >
+          remove
+        </button>
       </li>
     {{/each}}
   </ul>

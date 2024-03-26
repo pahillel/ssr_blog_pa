@@ -19,13 +19,13 @@
 
   <footer>
     {{#if showLink}}
-      <a href='/posts/{{this._id}}'>
+      <a class='link' href='/posts/{{this._id}}'>
         read more
       </a>
     {{else}}
       {{#if (equal this.author._id user)}}
         <button
-          class='button button--warn'
+          class='button button--warn button--mini'
           type='button'
           name='delete-post'
           data-post='{{this._id}}'

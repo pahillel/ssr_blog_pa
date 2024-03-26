@@ -1,6 +1,7 @@
 const UserModel = require('../models/user.model');
 const PostModel = require('../models/post.model');
 const CommentModel = require('../models/comment.model');
+const mongoose = require('mongoose');
 
 const { hashPassword, comparePassword } = require('../utils/auth');
 
@@ -45,9 +46,13 @@ class UserService {
   }
 
   async deleteUser(userId) {
-    await PostModel.deleteMany({ author: userId });
-    await CommentModel.deleteMany({ author: userId });
-    await UserModel.deleteOne({ _id: userId });
+    try {
+      await PostModel.deleteMany({ author: userId });
+      await CommentModel.deleteMany({ author: userId });
+      await UserModel.deleteOne({ _id: userId });
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getAllUsers() {

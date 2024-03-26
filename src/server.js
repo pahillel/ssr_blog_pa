@@ -8,7 +8,8 @@ const { closeConnection } = require('./connection');
 const {
   formatDate,
   spliceContent,
-  isEquals
+  isEquals,
+  isActive
 } = require('./utils/template-helpers');
 const routerModule = require('./routes');
 
@@ -22,7 +23,8 @@ const hbs = exphbs.create({
   helpers: {
     formatDate: formatDate,
     spliceContent: spliceContent,
-    equal: isEquals
+    equal: isEquals,
+    isActive: isActive
   }
 });
 

@@ -71,7 +71,7 @@ class UserController {
 
       await userService.deleteUser(userId);
 
-      res.status(200).send('deleted');
+      res.status(204).send();
     } catch (error) {}
   }
 }
