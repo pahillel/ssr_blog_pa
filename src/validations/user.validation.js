@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { baseString, requiredObjectId } = require('./common.validation');
 
-const baseUser = baseString.min(4).max(64);
+const baseUser = baseString.min(2).max(64);
 
 const createUserValidation = {
   body: {

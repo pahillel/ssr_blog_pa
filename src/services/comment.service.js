@@ -1,7 +1,14 @@
 const CommentModel = require('../models/comment.model');
+const PostModel = require('../models/post.model');
 
 class CommentService {
   async createComment(comment, postId, author) {
+    const post = await PostModel.findById(postId);
+
+    if (!post) {
+      throw new Error('Post not found');
+    }
+
     const newComment = await CommentModel.create({
       comment,
       author,
@@ -11,19 +18,17 @@ class CommentService {
     return newComment;
   }
 
-  async deleteComment(commentId) {
-    const deletedComment = await CommentModel.findByIdAndDelete(commentId);
-
-    return deletedComment;
-  }
-
-  async getComment(commentId, authorId) {
-    const comment = await CommentModel.findOne({
+  async deleteComment(commentId, authorId) {
+    const deletedComment = await CommentModel.findOneAndDelete({
       _id: commentId,
       author: authorId
     });
 
-    return comment;
+    if (!deletedComment) {
+      throw new Error('You have no permission');
+    }
+
+    return deletedComment;
   }
 }
 

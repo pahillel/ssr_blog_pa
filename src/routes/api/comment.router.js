@@ -3,21 +3,21 @@ const commentController = require('../../controllers/comment.controller');
 const { isAuthApi } = require('../../middlewares/guards');
 const validate = require('../../middlewares/validate');
 const {
-  createPostValidation,
-  deletePostValidation
+  createCommentValidation,
+  deleteCommentValidation
 } = require('../../validations/comment.validation');
 
 router.post(
   '/:postId',
   isAuthApi,
-  validate(createPostValidation),
+  validate(createCommentValidation),
   commentController.createComment
 );
 
 router.delete(
   '/:commentId',
   isAuthApi,
-  validate(deletePostValidation),
+  validate(deleteCommentValidation),
   commentController.deleteComment
 );
 

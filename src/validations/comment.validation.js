@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { requiredObjectId } = require('./common.validation');
 
-const createPostValidation = {
+const createCommentValidation = {
   params: {
     postId: requiredObjectId
   },
@@ -10,13 +10,13 @@ const createPostValidation = {
   }
 };
 
-const deletePostValidation = {
+const deleteCommentValidation = {
   params: {
-    postId: requiredObjectId
+    commentId: requiredObjectId
   }
 };
 
 module.exports = {
-  createPostValidation,
-  deletePostValidation
+  createCommentValidation,
+  deleteCommentValidation
 };

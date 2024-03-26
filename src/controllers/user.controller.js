@@ -3,7 +3,7 @@ const userService = require('../services/user.service');
 const { signToken } = require('../utils/auth');
 
 class UserController {
-  async login(req, res) {
+  async login(req, res, next) {
     try {
       const user = await userService.login(req.body);
 
@@ -21,11 +21,11 @@ class UserController {
 
       res.json(token);
     } catch (error) {
-      console.log('login', error.message);
+      next(error);
     }
   }
 
-  async signup(req, res) {
+  async signup(req, res, next) {
     try {
       const user = await userService.createUser(req.body);
 
@@ -42,18 +42,22 @@ class UserController {
       res.cookie('token', token, { ...config.cookies });
 
       res.status(201).send(token);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async logout(req, res) {
+  async logout(req, res, next) {
     try {
       res.clearCookie('token');
 
       res.status(200).send();
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async getAllUsers(req, res) {
+  async getAllUsers(req, res, next) {
     try {
       const users = await userService.getAllUsers();
 
@@ -62,17 +66,21 @@ class UserController {
       }
 
       res.status(200).send(users);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async deleteUser(req, res) {
+  async deleteUser(req, res, next) {
     try {
       const { userId } = req.params;
 
       await userService.deleteUser(userId);
 
       res.status(204).send();
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

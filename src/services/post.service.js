@@ -74,8 +74,15 @@ class PostService {
     return posts;
   }
 
-  async deletePost(postId) {
-    const post = await PostModel.findByIdAndDelete(postId);
+  async deletePost(postId, userId) {
+    const post = await PostModel.findOneAndDelete({
+      _id: postId,
+      author: userId
+    });
+
+    if (!post) {
+      throw new Error('You have no permission');
+    }
 
     await CommentModel.deleteMany({ post: postId });
 

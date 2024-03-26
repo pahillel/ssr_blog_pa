@@ -2,7 +2,7 @@ const commentService = require('../services/comment.service');
 const PostModel = require('../models/post.model');
 
 class CommentController {
-  async createComment(req, res) {
+  async createComment(req, res, next) {
     try {
       const { postId } = req.params;
       const { comment } = req.body;
@@ -27,42 +27,22 @@ class CommentController {
       );
 
       res.status(201).send(newComment);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async deleteComment(req, res) {
+  async deleteComment(req, res, next) {
     try {
       const { commentId } = req.params;
       const authorId = req.user._id;
 
-      const comment = await commentService.getComment(commentId, authorId);
+      await commentService.deleteComment(commentId, authorId);
 
-      if (!comment) {
-        throw new Error('Comment not found');
-      }
-
-      const deletedComment = await commentService.deleteComment(commentId);
-
-      if (!deletedComment) {
-        throw new Error('Comment not deleted');
-      }
-
-      res.status(204).send(deletedComment);
-    } catch (error) {}
-  }
-
-  async getAllComments(req, res) {
-    try {
-      const { postId } = req.params;
-
-      const comments = await commentService.getAllComments(postId);
-
-      if (!comments) {
-        throw new Error('Comments not found');
-      }
-
-      res.status(200).send(comments);
-    } catch (error) {}
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

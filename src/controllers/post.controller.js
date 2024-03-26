@@ -1,7 +1,7 @@
 const postService = require('../services/post.service');
 
 class PostController {
-  async getUserPosts(req, res) {
+  async getUserPosts(req, res, next) {
     try {
       const posts = await postService.getUserPosts(req.user._id);
 
@@ -11,7 +11,7 @@ class PostController {
 
       res.status(200).send(posts);
     } catch (error) {
-      console.log('getMyPosts', error.message);
+      next(error);
     }
   }
 
@@ -25,12 +25,11 @@ class PostController {
 
       res.status(200).send(posts);
     } catch (error) {
-      console.log('getAllPosts', error.message);
       next(error);
     }
   }
 
-  async createNewPost(req, res) {
+  async createNewPost(req, res, next) {
     try {
       const { content } = req.body;
 
@@ -47,25 +46,24 @@ class PostController {
 
       res.status(201).send(post);
     } catch (error) {
-      console.log('createNewPost', error.message);
+      next(error);
     }
   }
 
-  async deletePost(req, res) {
+  async deletePost(req, res, next) {
     try {
       const { postId } = req.params;
+      const { _id } = req.user;
 
-      const result = await postService.deletePost(postId);
-
-      if (!result) {
-        throw new Error('post was not deleted');
-      }
+      await postService.deletePost(postId, _id);
 
       res.status(204).send();
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async getPost(req, res) {
+  async getPost(req, res, next) {
     try {
       const { postId } = req.params;
 
@@ -76,7 +74,9 @@ class PostController {
       }
 
       res.status(200).send(post);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

@@ -5,7 +5,7 @@ const tokenParser = require('../middlewares/token-parser');
 
 router.use(tokenParser);
 
-router.use('/', pageRouter);
 router.use('/api', apiRouter);
+router.use('/', pageRouter);
 
 module.exports = router;
