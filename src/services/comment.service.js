@@ -1,5 +1,6 @@
 const CommentModel = require('../models/comment.model');
 const PostModel = require('../models/post.model');
+const { errorMessages } = require('../constants');
 
 class CommentService {
   async createComment(comment, postId, author) {
@@ -25,7 +26,7 @@ class CommentService {
     });
 
     if (!deletedComment) {
-      throw new Error('You have no permission');
+      throw new Error(errorMessages.NO_PERMISSION);
     }
 
     return deletedComment;

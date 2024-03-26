@@ -1,21 +1,23 @@
+const { statusCode, errorMessages } = require('../constants');
+
 const errorHandlerApi = (err, req, res, next) => {
-  res.status(500).json({
-    error: err.message || 'Something went wrong'
+  res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+    error: err.message || errorMessages.INTERNAL_SERVER_ERROR
   });
 };
 
 const errorHandler = (err, req, res, next) => {
-  res.status(500).render('error', {
-    error: err.message || 'Something went wrong'
+  res.status(statusCode.INTERNAL_SERVER_ERROR).render('error', {
+    error: err.message || errorMessages.INTERNAL_SERVER_ERROR
   });
 };
 
 const notFoundApi = (req, res, next) => {
-  res.status(404).json({ error: 'Not found' });
+  res.status(statusCode.NOT_FOUND).json({ error: errorMessages.NOT_FOUND });
 };
 
 const notFound = (req, res, next) => {
-  res.status(404).render('404');
+  res.status(statusCode.NOT_FOUND).render('404');
 };
 
 module.exports = {

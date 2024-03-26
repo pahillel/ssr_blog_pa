@@ -1,5 +1,6 @@
 const commentService = require('../services/comment.service');
 const PostModel = require('../models/post.model');
+const { statusCode, response } = require('../constants');
 
 class CommentController {
   async createComment(req, res, next) {
@@ -26,7 +27,10 @@ class CommentController {
         { new: true }
       );
 
-      res.status(201).send(newComment);
+      response(res, {
+        status: statusCode.CREATED,
+        data: newComment
+      });
     } catch (error) {
       next(error);
     }
@@ -39,7 +43,9 @@ class CommentController {
 
       await commentService.deleteComment(commentId, authorId);
 
-      res.status(204).send();
+      response(res, {
+        status: statusCode.NO_CONTENT
+      });
     } catch (error) {
       next(error);
     }

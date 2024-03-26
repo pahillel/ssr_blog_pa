@@ -1,29 +1,19 @@
 const PostModel = require('../models/post.model');
 const UserModel = require('../models/user.model');
 const CommentModel = require('../models/comment.model');
-const mongoose = require('mongoose');
 
-const postsPopulate = [
-  {
-    path: 'author',
-    model: UserModel,
-    select: 'userName'
-  },
-  {
-    path: 'comments',
-    model: CommentModel,
-    populate: {
-      path: 'author',
-      model: UserModel,
-      select: 'userName'
-    }
-  }
-];
+const { errorMessages } = require('../constants');
+
+const authorPopulate = {
+  path: 'author',
+  model: UserModel,
+  select: 'userName'
+};
 
 class PostService {
   async getUserPosts(author) {
     const posts = await PostModel.find({ author })
-      .populate(postsPopulate)
+      .populate([authorPopulate])
       .sort({ createdAt: -1 })
       .lean()
       .exec();
@@ -42,20 +32,12 @@ class PostService {
   async getPost(postId) {
     const post = await PostModel.findById(postId)
       .populate([
-        {
-          path: 'author',
-          model: UserModel,
-          select: 'userName'
-        },
+        authorPopulate,
         {
           path: 'comments',
           model: CommentModel,
           options: { sort: { createdAt: -1 } },
-          populate: {
-            path: 'author',
-            model: UserModel,
-            select: 'userName'
-          }
+          populate: authorPopulate
         }
       ])
       .lean()
@@ -66,7 +48,7 @@ class PostService {
 
   async getAllPosts() {
     const posts = await PostModel.find()
-      .populate(postsPopulate)
+      .populate([authorPopulate])
       .sort({ createdAt: -1 })
       .lean()
       .exec();
@@ -81,7 +63,7 @@ class PostService {
     });
 
     if (!post) {
-      throw new Error('You have no permission');
+      throw new Error(errorMessages.NO_PERMISSION);
     }
 
     await CommentModel.deleteMany({ post: postId });

@@ -1,6 +1,7 @@
 const config = require('config');
 const userService = require('../services/user.service');
 const { signToken } = require('../utils/auth');
+const { statusCode, response } = require('../constants');
 
 class UserController {
   async login(req, res, next) {
@@ -19,7 +20,10 @@ class UserController {
 
       res.cookie('token', token, { ...config.cookies });
 
-      res.json(token);
+      response(res, {
+        status: statusCode.OK,
+        data: token
+      });
     } catch (error) {
       next(error);
     }
@@ -41,7 +45,10 @@ class UserController {
 
       res.cookie('token', token, { ...config.cookies });
 
-      res.status(201).send(token);
+      response(res, {
+        status: statusCode.OK,
+        data: token
+      });
     } catch (error) {
       next(error);
     }
@@ -51,7 +58,9 @@ class UserController {
     try {
       res.clearCookie('token');
 
-      res.status(200).send();
+      response(res, {
+        status: statusCode.OK
+      });
     } catch (error) {
       next(error);
     }
@@ -65,7 +74,10 @@ class UserController {
         throw new Error('Users not found');
       }
 
-      res.status(200).send(users);
+      response(res, {
+        status: statusCode.OK,
+        data: users
+      });
     } catch (error) {
       next(error);
     }
@@ -77,7 +89,9 @@ class UserController {
 
       await userService.deleteUser(userId);
 
-      res.status(204).send();
+      response(res, {
+        status: statusCode.NO_CONTENT
+      });
     } catch (error) {
       next(error);
     }

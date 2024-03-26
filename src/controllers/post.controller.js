@@ -1,4 +1,5 @@
 const postService = require('../services/post.service');
+const { statusCode, response } = require('../constants');
 
 class PostController {
   async getUserPosts(req, res, next) {
@@ -9,7 +10,10 @@ class PostController {
         throw new Error('Posts not found');
       }
 
-      res.status(200).send(posts);
+      response(res, {
+        status: statusCode.OK,
+        data: posts
+      });
     } catch (error) {
       next(error);
     }
@@ -23,7 +27,10 @@ class PostController {
         throw new Error('Posts not found');
       }
 
-      res.status(200).send(posts);
+      response(res, {
+        status: statusCode.OK,
+        data: posts
+      });
     } catch (error) {
       next(error);
     }
@@ -44,7 +51,10 @@ class PostController {
         throw new Error('Post not created');
       }
 
-      res.status(201).send(post);
+      response(res, {
+        status: statusCode.CREATED,
+        data: post
+      });
     } catch (error) {
       next(error);
     }
@@ -57,7 +67,9 @@ class PostController {
 
       await postService.deletePost(postId, _id);
 
-      res.status(204).send();
+      response(res, {
+        status: statusCode.NO_CONTENT
+      });
     } catch (error) {
       next(error);
     }
@@ -73,7 +85,10 @@ class PostController {
         throw new Error('Post not found');
       }
 
-      res.status(200).send(post);
+      response(res, {
+        status: statusCode.OK,
+        data: post
+      });
     } catch (error) {
       next(error);
     }

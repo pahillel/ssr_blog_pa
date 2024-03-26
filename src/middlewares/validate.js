@@ -1,4 +1,5 @@
 const { celebrate, isCelebrateError } = require('celebrate');
+const { statusCode } = require('../constants');
 
 const validate = (
   schema,
@@ -17,7 +18,9 @@ const validate = (
           ([key, detail]) => `Validation error (${key}): ${detail.message}`
         );
 
-        return res.status(400).json({ validation_error: error });
+        return res
+          .status(statusCode.BAD_REQUEST)
+          .json({ validation_error: error });
       }
 
       next();

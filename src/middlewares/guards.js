@@ -1,6 +1,8 @@
+const { errorMessages } = require('../constants');
+
 const isAuthApi = (req, res, next) => {
   if (!req.user) {
-    next(new Error('Unauthorized'));
+    next(new Error(errorMessages.UNAUTHORIZED));
   }
 
   next();
@@ -10,7 +12,7 @@ const isAdminApi = (req, res, next) => {
   const { role = '' } = req.user || {};
 
   if (role !== 'admin') {
-    next(new Error('Forbidden! You have no permission'));
+    next(new Error(errorMessages.FORBIDDEN));
   }
 
   next();

@@ -5,20 +5,19 @@ const createAdmin = async () => {
     const admin = await userService.checkExistAdmin();
 
     if (admin) {
-      console.log('Admin already exist');
       return;
     }
 
     const payload = {
       userName: 'admin',
-      password: 'admin',
+      password: 'admin123',
       email: 'admin@gmail.com',
       role: 'admin'
     };
 
     await userService.createUser(payload);
   } catch (error) {
-    console.error('Admin was not created!');
+    next(error);
   }
 };
 

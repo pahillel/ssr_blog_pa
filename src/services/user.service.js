@@ -1,7 +1,6 @@
 const UserModel = require('../models/user.model');
 const PostModel = require('../models/post.model');
 const CommentModel = require('../models/comment.model');
-const mongoose = require('mongoose');
 
 const { hashPassword, comparePassword } = require('../utils/auth');
 
@@ -18,7 +17,7 @@ class UserService {
     const isPassValid = await comparePassword(password, user.password);
 
     if (!isPassValid) {
-      throw new Error('Password is not valid');
+      throw new Error('Password or login is incorrect');
     }
 
     return user;
@@ -30,7 +29,7 @@ class UserService {
     const candidate = await UserModel.findOne({ userName });
 
     if (candidate) {
-      return null;
+      throw new Error('User already exists');
     }
 
     const hashPass = await hashPassword(password);
