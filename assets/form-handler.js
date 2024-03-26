@@ -23,8 +23,9 @@ forms.forEach((form) => {
       });
 
       if (response.ok) {
-        // window.location.replace('/home');
         window.location.reload();
+
+        return;
       }
     } catch (error) {}
   });

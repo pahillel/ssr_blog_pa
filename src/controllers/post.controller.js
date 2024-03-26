@@ -1,7 +1,7 @@
 const postService = require('../services/post.service');
 
 class PostController {
-  async getMyPosts(req, res) {
+  async getUserPosts(req, res) {
     try {
       const posts = await postService.getUserPosts(req.user._id);
 
