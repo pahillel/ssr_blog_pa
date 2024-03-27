@@ -1,7 +1,10 @@
 const userService = require('../services/user.service');
+const { openConnection, closeConnection } = require('../connection');
 
-const createAdmin = async () => {
+(async () => {
   try {
+    await openConnection();
+
     const admin = await userService.checkExistAdmin();
 
     if (admin) {
@@ -17,10 +20,8 @@ const createAdmin = async () => {
 
     await userService.createUser(payload);
   } catch (error) {
-    next(error);
+    console.error('Error creating admin', error);
+  } finally {
+    closeConnection();
   }
-};
-
-module.exports = {
-  createAdmin
-};
+})();

@@ -42,7 +42,7 @@ app.use('/', routerModule);
 
 process.on('SIGINT', async () => {
   try {
-    await closeConnection();
+    closeConnection();
   } catch (error) {
     console.error('Error closing the connection', error);
   } finally {

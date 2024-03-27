@@ -6,6 +6,7 @@
   "scripts": {
     "start": "cross-env node ./main.js",
     "watch": "cross-env NODE_ENV=dev nodemon ./main.js",
+    "create:admin": "node ./src/utils/create-admin.js",
     "format:fix": "prettier --write ."
   },
   "author": "",
