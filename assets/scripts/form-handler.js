@@ -20,12 +20,15 @@ forms.forEach((form) => {
     });
 
     try {
-      await requestHandler(form);
+      console.log('here');
+      await requestHandler(form, value);
     } catch (error) {}
   });
 });
 
-const requestHandler = async (form) => {
+const requestHandler = async (form, value) => {
+  console.log('inside');
+
   const response = await fetch(form.action, {
     method: form.method,
     headers: {
@@ -34,6 +37,7 @@ const requestHandler = async (form) => {
     body: JSON.stringify(value)
   });
 
+  console.log(response);
   if (response.ok) {
     window.location.reload();
     return;
@@ -53,8 +57,6 @@ const requestHandler = async (form) => {
 };
 
 const errorHandle = (error, element) => {
-  console.log(error);
-
   if (ERRORS_MAP[error]) {
     addErrorElement(error, element);
   } else if (error === 'validationError') {

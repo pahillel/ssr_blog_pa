@@ -6,18 +6,18 @@ class PagesController {
     try {
       const posts = await postService.getAllPosts();
 
-      res.render('index', { posts });
+      res.render('index', { posts, useAssets: 'posts' });
     } catch (error) {
       next(error);
     }
   }
 
   async renderLogin(req, res) {
-    res.render('login', { active: 'login' });
+    res.render('login', { active: 'login', useAssets: 'auth' });
   }
 
   async renderSignup(req, res) {
-    res.render('signup', { active: 'signup' });
+    res.render('signup', { active: 'signup', useAssets: 'auth' });
   }
 
   async renderPosts(req, res, next) {
@@ -36,7 +36,8 @@ class PagesController {
       res.render('home', {
         posts,
         active: isAdminRequest ? 'users' : 'posts',
-        hideForm: isAdminRequest
+        hideForm: isAdminRequest,
+        useAssets: 'posts'
       });
     } catch (error) {
       next(error);
@@ -47,7 +48,7 @@ class PagesController {
     try {
       const users = await userService.getAllUsers();
 
-      res.render('users', { users, active: 'users' });
+      res.render('users', { users, active: 'users', useAssets: 'users' });
     } catch (error) {
       next(error);
     }
@@ -59,7 +60,7 @@ class PagesController {
 
       const post = await postService.getPost(postId);
 
-      res.render('full-post', { post, active: 'posts' });
+      res.render('full-post', { post, active: 'posts', useAssets: 'post' });
     } catch (error) {
       next(error);
     }

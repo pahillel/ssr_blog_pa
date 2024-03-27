@@ -21,7 +21,6 @@ class UserController {
         data: token
       });
     } catch (error) {
-      console.log('HERE', error);
       next(error);
     }
   }

@@ -28,7 +28,7 @@ const deletePost = async (postId) => {
   });
 
   if (response.ok) {
-    window.location.replace('/my-posts');
+    window.location.replace('/posts');
   }
 };
 

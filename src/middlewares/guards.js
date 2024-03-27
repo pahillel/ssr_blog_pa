@@ -30,7 +30,7 @@ const isAdmin = (req, res, next) => {
   const { role = '' } = req.user || {};
 
   if (role !== 'admin') {
-    return res.redirect('/home');
+    return res.redirect('/posts');
   }
 
   next();

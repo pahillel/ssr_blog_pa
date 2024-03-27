@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const pagesController = require('../../controllers/pages.controller');
 const templateLocals = require('../../middlewares/template-locals');
-const { isAuth, isAnonymous } = require('../../middlewares/guards');
+const { isAuth, isAdmin, isAnonymous } = require('../../middlewares/guards');
 const { errorHandler, notFound } = require('../../middlewares/global');
 
 router.use(templateLocals);
@@ -19,7 +19,7 @@ router.get(
   pagesController.renderPosts
 );
 
-router.get('/users', pagesController.renderUsers);
+router.get('/users', isAdmin, pagesController.renderUsers);
 
 router.get('/posts/:postId', pagesController.renderPostPage);
 

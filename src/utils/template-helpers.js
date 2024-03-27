@@ -19,7 +19,6 @@ const spliceContent = (content, to = 100) => {
 const isEquals = (a = '', b = '') => a.toString() === b.toString();
 
 const isActive = (currentUrl, target) => {
-  console.log(currentUrl, target);
   return currentUrl === target ? 'active' : '';
 };
 
