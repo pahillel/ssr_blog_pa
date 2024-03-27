@@ -2,7 +2,8 @@ const { statusCode, errorMessages } = require('../constants');
 
 const errorHandlerApi = (err, req, res, next) => {
   res.status(statusCode.INTERNAL_SERVER_ERROR).json({
-    error: err.message || errorMessages.INTERNAL_SERVER_ERROR
+    error: err.message || errorMessages.INTERNAL_SERVER_ERROR,
+    type: 'data-error'
   });
 };
 

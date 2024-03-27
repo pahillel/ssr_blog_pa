@@ -20,7 +20,7 @@ const validate = (
 
         return res
           .status(statusCode.BAD_REQUEST)
-          .json({ validation_error: error });
+          .json({ error, type: 'validation-error' });
       }
 
       next();

@@ -1,11 +1,5 @@
 const forms = document.querySelectorAll('form');
 
-const ERRORS_MAP = {
-  'User not found': true,
-  'Password or login is incorrect': true,
-  'User already exists': true
-};
-
 forms.forEach((form) => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -41,21 +35,15 @@ const requestHandler = async (form, value) => {
 
   const data = await response.json();
 
-  let error = data.error;
-
-  if (data.validation_error) {
-    error = 'validationError';
-  }
-
-  if (error) {
-    errorHandle(error, form);
+  if (data.error) {
+    errorHandle(data.error, data.type, form);
   }
 };
 
-const errorHandle = (error, element) => {
-  if (ERRORS_MAP[error]) {
+const errorHandle = (error, type, element) => {
+  if (type === 'data-error') {
     addErrorElement(error, element);
-  } else if (error === 'validationError') {
+  } else if (type === 'validation-error') {
     handleControlsErrors(element);
   }
 };
