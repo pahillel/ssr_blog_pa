@@ -20,15 +20,12 @@ forms.forEach((form) => {
     });
 
     try {
-      console.log('here');
       await requestHandler(form, value);
     } catch (error) {}
   });
 });
 
 const requestHandler = async (form, value) => {
-  console.log('inside');
-
   const response = await fetch(form.action, {
     method: form.method,
     headers: {
@@ -37,7 +34,6 @@ const requestHandler = async (form, value) => {
     body: JSON.stringify(value)
   });
 
-  console.log(response);
   if (response.ok) {
     window.location.reload();
     return;

@@ -1,6 +1,8 @@
-admin credentials: admin:admin123
+# Start locals:
 
-TODO:
+mongo --port 27018
 
-separate styles and scripts
-docs
+# Admin credentials:
+
+login: admin
+pass: admin123
