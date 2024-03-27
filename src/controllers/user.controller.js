@@ -8,10 +8,6 @@ class UserController {
     try {
       const user = await userService.login(req.body);
 
-      if (!user) {
-        throw new Error('User not found');
-      }
-
       const payload = {
         _id: user._id.toString(),
         role: user.role
@@ -25,6 +21,7 @@ class UserController {
         data: token
       });
     } catch (error) {
+      console.log('HERE', error);
       next(error);
     }
   }
@@ -32,10 +29,6 @@ class UserController {
   async signup(req, res, next) {
     try {
       const user = await userService.createUser(req.body);
-
-      if (!user) {
-        throw new Error('User already exists');
-      }
 
       const payload = {
         _id: user._id.toString(),

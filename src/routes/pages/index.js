@@ -14,7 +14,7 @@ router.get('/login', isAnonymous, pagesController.renderLogin);
 router.get('/signup', isAnonymous, pagesController.renderSignup);
 
 router.get(
-  ['/posts', '/posts/user/:userId'],
+  ['/posts', '/posts/users/:userId'],
   isAuth,
   pagesController.renderPosts
 );

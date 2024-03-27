@@ -11,7 +11,7 @@ class UserService {
     const user = await UserModel.findOne({ userName });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('Password or login is incorrect');
     }
 
     const isPassValid = await comparePassword(password, user.password);

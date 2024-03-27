@@ -33,7 +33,11 @@ class PagesController {
 
       const posts = await postService.getUserPosts(userId);
 
-      res.render('home', { posts, active: 'posts', hideForm: isAdminRequest });
+      res.render('home', {
+        posts,
+        active: isAdminRequest ? 'users' : 'posts',
+        hideForm: isAdminRequest
+      });
     } catch (error) {
       next(error);
     }

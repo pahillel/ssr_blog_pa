@@ -16,6 +16,9 @@ body {
   justify-content: center;
   padding: 10px 20px;
   background-color: #555555;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 .header-container {
@@ -328,4 +331,13 @@ body {
 
 .link:hover {
   color: darkblue;
+}
+
+.error {
+  color: red;
+}
+
+.control-error {
+  border-color: red;
+  box-shadow: inset 0px 0px 3px red;
 }
