@@ -1,0 +1,23 @@
+.error-page {
+  display: grid;
+  justify-content: center;
+  row-gap: 20px;
+  text-align: center;
+}
+
+.error-page__title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+.error-page__description {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.error-page__message {
+  font-size: 15px;
+  line-height: 20px;
+}

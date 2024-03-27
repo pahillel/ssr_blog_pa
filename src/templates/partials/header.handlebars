@@ -1,0 +1,45 @@
+<header class='header'>
+  <div class='header-container'>
+    <a class='header__link header__link--main' href='/'>
+      Blog
+    </a>
+
+    <nav>
+      <ul class='header__list'>
+        {{#if isAuth}}
+          {{#if isAdmin}}
+            <li>
+              <a class='header__link {{isActive active "users"}}' href='/users'>
+                Users
+              </a>
+            </li>
+          {{/if}}
+          <li>
+            <a class='header__link {{isActive active "posts"}}' href='/posts'>
+              Posts
+            </a>
+          </li>
+          <li>
+            <button class='header__link header__link--btn' name='logout'>
+              Logout
+            </button>
+          </li>
+        {{else}}
+          <li>
+            <a
+              class='header__link {{isActive active "signupt"}}'
+              href='/signup'
+            >
+              Signup
+            </a>
+          </li>
+          <li>
+            <a class='header__link {{isActive active "login"}}' href='/login'>
+              Login
+            </a>
+          </li>
+        {{/if}}
+      </ul>
+    </nav>
+  </div>
+</header>

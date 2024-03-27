@@ -1,0 +1,45 @@
+<div class='auth'>
+  <h3 class='auth-title'>
+    Sign up
+  </h3>
+
+  <form class='auth-form' action='/api/users/signup' method='POST'>
+    <fieldset class='auth-form__box'>
+      <label for='userName'>Username</label>
+      <input
+        class='auth-form__field'
+        type='text'
+        name='userName'
+        placeholder='Enter your user name'
+        id='userName'
+        required
+      />
+    </fieldset>
+
+    <fieldset class='auth-form__box'>
+      <label for='email'>Email</label>
+      <input
+        class='auth-form__field'
+        type='email'
+        name='email'
+        placeholder='Enter your email'
+        id='email'
+        required
+      />
+    </fieldset>
+
+    <fieldset class='auth-form__box'>
+      <label for='password'>Password</label>
+      <input
+        class='auth-form__field'
+        type='password'
+        name='password'
+        placeholder='Enter your password'
+        id='password'
+        required
+      />
+    </fieldset>
+
+    <button class='button' type='submit'>Sign up</button>
+  </form>
+</div>
