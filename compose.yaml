@@ -1,0 +1,30 @@
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      DB_NAME: ssr_blog
+      DB_URI: mongodb://mongodb:27017
+    ports:
+      - 3000:3000
+    depends_on:
+      mongodb:
+        condition: service_healthy
+  mongodb:
+    image: mongo
+    restart: always
+    volumes:
+      - db-data:/data/db
+    expose:
+      - 27017
+    ports:
+      - 27017:27018
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/ssr_blog --quiet
+      timeout: 5s
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt

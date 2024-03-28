@@ -1,5 +1,3 @@
-const isDev = process.env.NODE_ENV === 'dev';
-
 module.exports = {
   port: Number(process.env.PORT) || 3000,
   secret: 'superSecretKey',
@@ -9,7 +7,7 @@ module.exports = {
     sameSite: 'strict'
   },
   mongo: {
-    url: 'mongodb://localhost:27018',
-    dbName: 'ssr_blog'
+    uri: process.env.DB_URI,
+    dbName: process.env.DB_NAME
   }
 };
