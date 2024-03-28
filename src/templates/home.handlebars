@@ -1,0 +1,13 @@
+{{#if hideForm}}{{else}}
+  <div class="posts-create">
+    {{> create-post}}
+  </div>
+{{/if}}
+
+<ul class="posts-list">
+  {{#each posts user=user}}
+    <li class="posts-list__item">
+      {{> post this usePipe=true showLink=true}}
+    </li>
+  {{/each}}
+</ul>

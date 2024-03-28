@@ -1,0 +1,46 @@
+<div class='users'>
+  <h3 class='users-title'>
+    Users
+  </h3>
+
+  <ul class='users-list'>
+    {{#each users}}
+      <li class='users-list__item'>
+        <div class='users-list__box'>
+          <span>User name:</span>
+          <span>{{this.userName}}</span>
+        </div>
+
+        <div class='users-list__box'>
+          <span>User email:</span>
+          <span>{{this.email}}</span>
+        </div>
+
+        <div class='users-list__box'>
+          <span>User role:</span>
+          <span>{{this.role}}</span>
+        </div>
+
+        <div class='users-list__box'>
+          <span>Registration date:</span>
+          <time datetime='{{this.createdAt}}'>
+            {{formatDate this.createdAt}}
+          </time>
+        </div>
+
+        <a class='link' href='/posts/users/{{this._id}}'>
+          See user posts
+        </a>
+
+        <button
+          class='button button--warn button--mini'
+          type='button'
+          name='delete-user'
+          data-user='{{this._id}}'
+        >
+          remove
+        </button>
+      </li>
+    {{/each}}
+  </ul>
+</div>

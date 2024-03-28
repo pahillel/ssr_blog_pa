@@ -1,0 +1,38 @@
+<article class='post'>
+  <header class='post__header'>
+    <span>
+      {{this.author.userName}}
+    </span>
+
+    <time datetime='{{this.createdAt}}'>
+      {{formatDate this.createdAt}}
+    </time>
+  </header>
+
+  <div class='post__content'>
+    {{#if usePipe}}
+      {{spliceContent this.content 100}}
+    {{else}}
+      {{this.content}}
+    {{/if}}
+  </div>
+
+  <footer>
+    {{#if showLink}}
+      <a class='link' href='/posts/{{this._id}}'>
+        read more
+      </a>
+    {{else}}
+      {{#if (equal this.author._id user)}}
+        <button
+          class='button button--warn button--mini'
+          type='button'
+          name='delete-post'
+          data-post='{{this._id}}'
+        >
+          delete post
+        </button>
+      {{/if}}
+    {{/if}}
+  </footer>
+</article>

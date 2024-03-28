@@ -1,0 +1,37 @@
+{{#if (equal useAssets 'auth')}}
+  <link rel='stylesheet' href='/public/styles/auth.css' />
+{{/if}}
+
+{{#if (equal useAssets 'posts')}}
+  <link rel='stylesheet' href='/public/styles/posts.css' />
+{{/if}}
+
+{{#if (equal useAssets 'users')}}
+  <link rel='stylesheet' href='/public/styles/users.css' />
+{{/if}}
+
+{{#if (equal useAssets 'post')}}
+  <link rel='stylesheet' href='/public/styles/post.css' />
+  <link rel='stylesheet' href='/public/styles/posts.css' />
+{{/if}}
+
+{{#if (equal useAssets 'error')}}
+  <link rel='stylesheet' href='/public/styles/error.css' />
+{{/if}}
+
+{{#if (equal useAssets '404')}}
+  <link rel='stylesheet' href='/public/styles/404.css' />
+{{/if}}
+
+<link rel='stylesheet' href='/public/styles/main.css' />
+
+<script defer src='/public/scripts/form-handler.js'></script>
+<script defer src='/public/scripts/main.js'></script>
+
+{{#if isAdmin}}
+  <script defer src='/public/scripts/admin.js'></script>
+{{/if}}
+
+{{#if (equal useAssets 'post')}}
+  <script defer src='/public/scripts/post.js'></script>
+{{/if}}

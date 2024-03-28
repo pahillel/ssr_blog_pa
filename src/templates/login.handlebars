@@ -1,0 +1,33 @@
+<div class='auth'>
+  <h3 class='auth-title'>
+    Login
+  </h3>
+
+  <form class='auth-form' action='/api/users/login' method='POST'>
+    <fieldset class='auth-form__box'>
+      <label for='userName'>User name</label>
+      <input
+        class='auth-form__field'
+        type='text'
+        name='userName'
+        placeholder='Enter your user name'
+        id='userName'
+        required
+      />
+    </fieldset>
+
+    <fieldset class='auth-form__box'>
+      <label for='password'>Password</label>
+      <input
+        class='auth-form__field'
+        type='password'
+        name='password'
+        placeholder='Enter your password'
+        id='password'
+        required
+      />
+    </fieldset>
+
+    <button class='button' type='submit'>Login</button>
+  </form>
+</div>

@@ -1,0 +1,12 @@
+{{#> main}}
+  <h1>Welcome</h1>
+  <section class="posts">
+    <ul class="posts-list">
+      {{#each posts}}
+        <li class="posts-list__item">
+          {{> post this usePipe=true showLink=true}}
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+{{/main}}
