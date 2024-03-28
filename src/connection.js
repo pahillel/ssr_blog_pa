@@ -11,7 +11,7 @@ db.once('open', () => {
 
 const openConnection = async () => {
   try {
-    await mongoose.connect(config.mongo.url, {
+    await mongoose.connect(config.mongo.uri, {
       dbName: config.mongo.dbName,
       config: { autoIndex: false }
     });
