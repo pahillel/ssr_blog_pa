@@ -11,9 +11,11 @@ const authorPopulate = {
 };
 
 class PostService {
+  //! better to keep at least data type hints in the parameter names, if no JSDoc added.
+  //! even more, you use it as userId in DELETE method already - stay consistent please
 
-  async getUserPosts(author) {
-    const posts = await PostModel.find({ author })
+  async getUserPosts(userId) {
+    const posts = await PostModel.find({ author: userId })
       .populate([authorPopulate])
       .sort({ createdAt: -1 })
       .lean()
