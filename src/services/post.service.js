@@ -11,6 +11,7 @@ const authorPopulate = {
 };
 
 class PostService {
+
   async getUserPosts(author) {
     const posts = await PostModel.find({ author })
       .populate([authorPopulate])

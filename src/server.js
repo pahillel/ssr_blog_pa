@@ -4,7 +4,6 @@ const exphbs = require('express-handlebars');
 const morgan = require('morgan');
 const path = require('path');
 
-const { closeConnection } = require('./connection');
 const {
   formatDate,
   spliceContent,
@@ -39,16 +38,5 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 app.use('/', routerModule);
-
-process.on('SIGINT', async () => {
-  try {
-    closeConnection();
-  } catch (error) {
-    console.error('Error closing the connection', error);
-  } finally {
-    console.log('Server stopped');
-    process.exit(0);
-  }
-});
 
 module.exports = app;
