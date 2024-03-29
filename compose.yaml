@@ -19,7 +19,7 @@ services:
     expose:
       - 27017
     ports:
-      - 27017:27018
+      - 27017:27017
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/ssr_blog --quiet
       timeout: 5s
