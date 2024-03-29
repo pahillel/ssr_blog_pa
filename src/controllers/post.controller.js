@@ -6,10 +6,6 @@ class PostController {
     try {
       const posts = await postService.getUserPosts(req.user._id);
 
-      if (!posts) {
-        throw new Error('Posts not found');
-      }
-
       response(res, {
         status: statusCode.OK,
         data: posts
@@ -22,10 +18,6 @@ class PostController {
   async getAllPosts(req, res, next) {
     try {
       const posts = await postService.getAllPosts();
-
-      if (!posts) {
-        throw new Error('Posts not found');
-      }
 
       response(res, {
         status: statusCode.OK,
