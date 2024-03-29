@@ -1,6 +1,6 @@
 module.exports = {
   port: Number(process.env.PORT) || 3000,
-  secret: 'superSecretKey',
+  secret: process.env.TOKEN_SECRET,
   cookies: {
     maxAge: 24 * 60 * 60 * 1000, // 1 day
     httpOnly: true,
